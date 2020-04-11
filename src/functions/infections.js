@@ -17,24 +17,32 @@ const userData = {
 };
 
 
-const currentlyInfected = (param) => {
+const currentlyInfectedForImpact = (param) => {
   try {
     const { data: { reportedCases } } = param;
-    const currentlyInfectedForImpact = reportedCases * 10;
-    const currentlyInfectedForSevereImpact = reportedCases * 50;
-    return [currentlyInfectedForImpact, currentlyInfectedForSevereImpact];
+    const currentlyInfected = reportedCases * 10;
+    return currentlyInfected;
   } catch (error) {
     return error.message;
   }
 };
+console.log(currentlyInfectedForImpact(userData));
 
-console.log(currentlyInfected(userData));
+const currentlyInfectedForSevereImpact = (param) => {
+  try {
+    const { data: { reportedCases } } = param;
+    const currentlyInfected = reportedCases * 50;
+    return currentlyInfected;
+  } catch (error) {
+    return error.message;
+  }
+};
+console.log(currentlyInfectedForSevereImpact(userData));
 
 const convertToDays = (param) => {
   let days;
   const { data: { timeToElapse }, data: { periodType } } = param;
   const setPeriodTypeToLowerCase = periodType.toLowerCase();
-  console.log(setPeriodTypeToLowerCase);
   switch (setPeriodTypeToLowerCase) {
     case 'days':
       days = timeToElapse;
@@ -53,13 +61,14 @@ const convertToDays = (param) => {
 
 console.log(convertToDays(userData));
 
-const infectionsByTime = () => {
+const infectionsByTimeForImpact = () => {
   try {
     // const {  } = param;
     const factor = Math.floor(convertToDays(userData) / 3);
-    return factor;
+    const infectionByRequestedTime = Math.floor(currentlyInfectedForImpact(userData) * 2 ** factor);
+    return infectionByRequestedTime;
   } catch (error) {
     return error.message;
   }
 };
-console.log(infectionsByTime());
+console.log(infectionsByTimeForImpact());

@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-export const infectionsForImpact = (data) => {
-  try {
-    return data;
-  } catch (error) {
-    return error.message;
-  }
-};
-
-export const infectionsForSevereImpact = (data) => {
-  try {
-    return data;
-=======
 // Challenge 1
 // import userData from './data';
 const userData = {
@@ -46,13 +33,10 @@ const currentlyInfectedForSevereImpact = (param) => {
     const { data: { reportedCases } } = param;
     const currentlyInfected = reportedCases * 50;
     return currentlyInfected;
->>>>>>> c515d7b207f722299f234661e277396b2e4d50e4
   } catch (error) {
     return error.message;
   }
 };
-<<<<<<< HEAD
-=======
 console.log(currentlyInfectedForSevereImpact(userData));
 
 const convertToDays = (param) => {
@@ -88,4 +72,3 @@ const infectionsByTimeForImpact = () => {
   }
 };
 console.log(infectionsByTimeForImpact());
->>>>>>> c515d7b207f722299f234661e277396b2e4d50e4

@@ -8,8 +8,8 @@ const userData = {
       avgDailyIncomeInUSD: 4,
       avgDailyIncomePopulation: 0.73
     },
-    periodType: 'Months',
-    timeToElapse: 88,
+    periodType: 'days',
+    timeToElapse: 38,
     reportedCases: 2747,
     population: 92931687,
     totalHospitalBeds: 678874
@@ -17,7 +17,7 @@ const userData = {
 };
 
 
-const currentlyInfectedForImpact = (param) => {
+export const currentlyInfectedForImpact = (param) => {
   try {
     const { data: { reportedCases } } = param;
     const currentlyInfected = reportedCases * 10;
@@ -28,7 +28,7 @@ const currentlyInfectedForImpact = (param) => {
 };
 console.log(currentlyInfectedForImpact(userData));
 
-const currentlyInfectedForSevereImpact = (param) => {
+export const currentlyInfectedForSevereImpact = (param) => {
   try {
     const { data: { reportedCases } } = param;
     const currentlyInfected = reportedCases * 50;
@@ -61,14 +61,28 @@ const convertToDays = (param) => {
 
 console.log(convertToDays(userData));
 
-const infectionsByTimeForImpact = () => {
+export const infectionsByTimeForImpact = () => {
   try {
     // const {  } = param;
-    const factor = Math.floor(convertToDays(userData) / 3);
-    const infectionByRequestedTime = Math.floor(currentlyInfectedForImpact(userData) * 2 ** factor);
+    const factor = Math.trunc(convertToDays(userData) / 3);
+    const infectionByRequestedTime = Math.trunc(currentlyInfectedForImpact(userData)
+      * (2 ** factor));
     return infectionByRequestedTime;
   } catch (error) {
     return error.message;
   }
 };
 console.log(infectionsByTimeForImpact());
+
+export const infectionsByTimeForSevereImpact = () => {
+  try {
+    // const {  } = param;
+    const factor = Math.trunc(convertToDays(userData) / 3);
+    const infectionByRequestedTime = Math.trunc(currentlyInfectedForSevereImpact(userData)
+      * (2 ** factor));
+    return infectionByRequestedTime;
+  } catch (error) {
+    return error.message;
+  }
+};
+console.log(infectionsByTimeForSevereImpact());
